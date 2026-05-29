@@ -4,7 +4,7 @@
 #include <cctype>
 #include <algorithm>
 #include <cstring>
-
+//765657657365736
 using namespace std;
 
 enum Piece {
