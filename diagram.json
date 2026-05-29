@@ -1,0 +1,2207 @@
+{
+  "version": 1,
+  "author": "Hector Sabillon",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw11",
+      "top": -220,
+      "left": 260,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d11",
+      "top": -216,
+      "left": 325,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw12",
+      "top": -220,
+      "left": 385,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d12",
+      "top": -216,
+      "left": 450,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw13",
+      "top": -220,
+      "left": 510,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d13",
+      "top": -216,
+      "left": 575,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw14",
+      "top": -220,
+      "left": 635,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d14",
+      "top": -216,
+      "left": 700,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw15",
+      "top": -220,
+      "left": 760,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d15",
+      "top": -216,
+      "left": 825,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw16",
+      "top": -220,
+      "left": 885,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d16",
+      "top": -216,
+      "left": 950,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw17",
+      "top": -220,
+      "left": 1010,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d17",
+      "top": -216,
+      "left": 1075,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw18",
+      "top": -220,
+      "left": 1135,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d18",
+      "top": -216,
+      "left": 1200,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw21",
+      "top": -148,
+      "left": 260,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d21",
+      "top": -144,
+      "left": 325,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw22",
+      "top": -148,
+      "left": 385,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d22",
+      "top": -144,
+      "left": 450,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw23",
+      "top": -148,
+      "left": 510,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d23",
+      "top": -144,
+      "left": 575,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw24",
+      "top": -148,
+      "left": 635,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d24",
+      "top": -144,
+      "left": 700,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw25",
+      "top": -148,
+      "left": 760,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d25",
+      "top": -144,
+      "left": 825,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw26",
+      "top": -148,
+      "left": 885,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d26",
+      "top": -144,
+      "left": 950,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw27",
+      "top": -148,
+      "left": 1010,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d27",
+      "top": -144,
+      "left": 1075,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw28",
+      "top": -148,
+      "left": 1135,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d28",
+      "top": -144,
+      "left": 1200,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw31",
+      "top": -76,
+      "left": 260,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d31",
+      "top": -72,
+      "left": 325,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw32",
+      "top": -76,
+      "left": 385,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d32",
+      "top": -72,
+      "left": 450,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw33",
+      "top": -76,
+      "left": 510,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d33",
+      "top": -72,
+      "left": 575,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw34",
+      "top": -76,
+      "left": 635,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d34",
+      "top": -72,
+      "left": 700,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw35",
+      "top": -76,
+      "left": 760,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d35",
+      "top": -72,
+      "left": 825,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw36",
+      "top": -76,
+      "left": 885,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d36",
+      "top": -72,
+      "left": 950,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw37",
+      "top": -76,
+      "left": 1010,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d37",
+      "top": -72,
+      "left": 1075,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw38",
+      "top": -76,
+      "left": 1135,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d38",
+      "top": -72,
+      "left": 1200,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw41",
+      "top": -4,
+      "left": 260,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d41",
+      "top": 0,
+      "left": 325,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw42",
+      "top": -4,
+      "left": 385,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d42",
+      "top": 0,
+      "left": 450,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw43",
+      "top": -4,
+      "left": 510,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d43",
+      "top": 0,
+      "left": 575,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw44",
+      "top": -4,
+      "left": 635,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d44",
+      "top": 0,
+      "left": 700,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw45",
+      "top": -4,
+      "left": 760,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d45",
+      "top": 0,
+      "left": 825,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw46",
+      "top": -4,
+      "left": 885,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d46",
+      "top": 0,
+      "left": 950,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw47",
+      "top": -4,
+      "left": 1010,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d47",
+      "top": 0,
+      "left": 1075,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw48",
+      "top": -4,
+      "left": 1135,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d48",
+      "top": 0,
+      "left": 1200,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw51",
+      "top": 68,
+      "left": 260,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d51",
+      "top": 72,
+      "left": 325,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw52",
+      "top": 68,
+      "left": 385,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d52",
+      "top": 72,
+      "left": 450,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw53",
+      "top": 68,
+      "left": 510,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d53",
+      "top": 72,
+      "left": 575,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw54",
+      "top": 68,
+      "left": 635,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d54",
+      "top": 72,
+      "left": 700,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw55",
+      "top": 68,
+      "left": 760,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d55",
+      "top": 72,
+      "left": 825,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw56",
+      "top": 68,
+      "left": 885,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d56",
+      "top": 72,
+      "left": 950,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw57",
+      "top": 68,
+      "left": 1010,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d57",
+      "top": 72,
+      "left": 1075,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw58",
+      "top": 68,
+      "left": 1135,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d58",
+      "top": 72,
+      "left": 1200,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw61",
+      "top": 140,
+      "left": 260,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d61",
+      "top": 144,
+      "left": 325,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw62",
+      "top": 140,
+      "left": 385,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d62",
+      "top": 144,
+      "left": 450,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw63",
+      "top": 140,
+      "left": 510,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d63",
+      "top": 144,
+      "left": 575,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw64",
+      "top": 140,
+      "left": 635,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d64",
+      "top": 144,
+      "left": 700,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw65",
+      "top": 140,
+      "left": 760,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d65",
+      "top": 144,
+      "left": 825,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw66",
+      "top": 140,
+      "left": 885,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d66",
+      "top": 144,
+      "left": 950,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw67",
+      "top": 140,
+      "left": 1010,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d67",
+      "top": 144,
+      "left": 1075,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw68",
+      "top": 140,
+      "left": 1135,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d68",
+      "top": 144,
+      "left": 1200,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw71",
+      "top": 212,
+      "left": 260,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d71",
+      "top": 216,
+      "left": 325,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw72",
+      "top": 212,
+      "left": 385,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d72",
+      "top": 216,
+      "left": 450,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw73",
+      "top": 212,
+      "left": 510,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d73",
+      "top": 216,
+      "left": 575,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw74",
+      "top": 212,
+      "left": 635,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d74",
+      "top": 216,
+      "left": 700,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw75",
+      "top": 212,
+      "left": 760,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d75",
+      "top": 216,
+      "left": 825,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw76",
+      "top": 212,
+      "left": 885,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d76",
+      "top": 216,
+      "left": 950,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw77",
+      "top": 212,
+      "left": 1010,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d77",
+      "top": 216,
+      "left": 1075,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw78",
+      "top": 212,
+      "left": 1135,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d78",
+      "top": 216,
+      "left": 1200,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw81",
+      "top": 284,
+      "left": 260,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d81",
+      "top": 288,
+      "left": 325,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw82",
+      "top": 284,
+      "left": 385,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d82",
+      "top": 288,
+      "left": 450,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw83",
+      "top": 284,
+      "left": 510,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d83",
+      "top": 288,
+      "left": 575,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw84",
+      "top": 284,
+      "left": 635,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d84",
+      "top": 288,
+      "left": 700,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw85",
+      "top": 284,
+      "left": 760,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d85",
+      "top": 288,
+      "left": 825,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw86",
+      "top": 284,
+      "left": 885,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d86",
+      "top": 288,
+      "left": 950,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw87",
+      "top": 284,
+      "left": 1010,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d87",
+      "top": 288,
+      "left": 1075,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw88",
+      "top": 284,
+      "left": 1135,
+      "attrs": {
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "chip-diode",
+      "id": "d88",
+      "top": 288,
+      "left": 1200,
+      "attrs": {}
+    }
+  ],
+  "connections": [
+    [
+      "esp:TX",
+      "$serialMonitor:RX",
+      "",
+      []
+    ],
+    [
+      "esp:RX",
+      "$serialMonitor:TX",
+      "",
+      []
+    ],
+    [
+      "sw11:2",
+      "esp:22",
+      "green",
+      []
+    ],
+    [
+      "sw21:2",
+      "esp:22",
+      "green",
+      []
+    ],
+    [
+      "sw31:2",
+      "esp:22",
+      "green",
+      []
+    ],
+    [
+      "sw41:2",
+      "esp:22",
+      "green",
+      []
+    ],
+    [
+      "sw51:2",
+      "esp:22",
+      "green",
+      []
+    ],
+    [
+      "sw61:2",
+      "esp:22",
+      "green",
+      []
+    ],
+    [
+      "sw71:2",
+      "esp:22",
+      "green",
+      []
+    ],
+    [
+      "sw81:2",
+      "esp:22",
+      "green",
+      []
+    ],
+    [
+      "sw12:2",
+      "esp:21",
+      "green",
+      []
+    ],
+    [
+      "sw22:2",
+      "esp:21",
+      "green",
+      []
+    ],
+    [
+      "sw32:2",
+      "esp:21",
+      "green",
+      []
+    ],
+    [
+      "sw42:2",
+      "esp:21",
+      "green",
+      []
+    ],
+    [
+      "sw52:2",
+      "esp:21",
+      "green",
+      []
+    ],
+    [
+      "sw62:2",
+      "esp:21",
+      "green",
+      []
+    ],
+    [
+      "sw72:2",
+      "esp:21",
+      "green",
+      []
+    ],
+    [
+      "sw82:2",
+      "esp:21",
+      "green",
+      []
+    ],
+    [
+      "sw13:2",
+      "esp:19",
+      "green",
+      []
+    ],
+    [
+      "sw23:2",
+      "esp:19",
+      "green",
+      []
+    ],
+    [
+      "sw33:2",
+      "esp:19",
+      "green",
+      []
+    ],
+    [
+      "sw43:2",
+      "esp:19",
+      "green",
+      []
+    ],
+    [
+      "sw53:2",
+      "esp:19",
+      "green",
+      []
+    ],
+    [
+      "sw63:2",
+      "esp:19",
+      "green",
+      []
+    ],
+    [
+      "sw73:2",
+      "esp:19",
+      "green",
+      []
+    ],
+    [
+      "sw83:2",
+      "esp:19",
+      "green",
+      []
+    ],
+    [
+      "sw14:2",
+      "esp:18",
+      "green",
+      []
+    ],
+    [
+      "sw24:2",
+      "esp:18",
+      "green",
+      []
+    ],
+    [
+      "sw34:2",
+      "esp:18",
+      "green",
+      []
+    ],
+    [
+      "sw44:2",
+      "esp:18",
+      "green",
+      []
+    ],
+    [
+      "sw54:2",
+      "esp:18",
+      "green",
+      []
+    ],
+    [
+      "sw64:2",
+      "esp:18",
+      "green",
+      []
+    ],
+    [
+      "sw74:2",
+      "esp:18",
+      "green",
+      []
+    ],
+    [
+      "sw84:2",
+      "esp:18",
+      "green",
+      []
+    ],
+    [
+      "sw15:2",
+      "esp:5",
+      "green",
+      []
+    ],
+    [
+      "sw25:2",
+      "esp:5",
+      "green",
+      []
+    ],
+    [
+      "sw35:2",
+      "esp:5",
+      "green",
+      []
+    ],
+    [
+      "sw45:2",
+      "esp:5",
+      "green",
+      []
+    ],
+    [
+      "sw55:2",
+      "esp:5",
+      "green",
+      []
+    ],
+    [
+      "sw65:2",
+      "esp:5",
+      "green",
+      []
+    ],
+    [
+      "sw75:2",
+      "esp:5",
+      "green",
+      []
+    ],
+    [
+      "sw85:2",
+      "esp:5",
+      "green",
+      []
+    ],
+    [
+      "sw16:2",
+      "esp:17",
+      "green",
+      []
+    ],
+    [
+      "sw26:2",
+      "esp:17",
+      "green",
+      []
+    ],
+    [
+      "sw36:2",
+      "esp:17",
+      "green",
+      []
+    ],
+    [
+      "sw46:2",
+      "esp:17",
+      "green",
+      []
+    ],
+    [
+      "sw56:2",
+      "esp:17",
+      "green",
+      []
+    ],
+    [
+      "sw66:2",
+      "esp:17",
+      "green",
+      []
+    ],
+    [
+      "sw76:2",
+      "esp:17",
+      "green",
+      []
+    ],
+    [
+      "sw86:2",
+      "esp:17",
+      "green",
+      []
+    ],
+    [
+      "sw17:2",
+      "esp:16",
+      "green",
+      []
+    ],
+    [
+      "sw27:2",
+      "esp:16",
+      "green",
+      []
+    ],
+    [
+      "sw37:2",
+      "esp:16",
+      "green",
+      []
+    ],
+    [
+      "sw47:2",
+      "esp:16",
+      "green",
+      []
+    ],
+    [
+      "sw57:2",
+      "esp:16",
+      "green",
+      []
+    ],
+    [
+      "sw67:2",
+      "esp:16",
+      "green",
+      []
+    ],
+    [
+      "sw77:2",
+      "esp:16",
+      "green",
+      []
+    ],
+    [
+      "sw87:2",
+      "esp:16",
+      "green",
+      []
+    ],
+    [
+      "sw18:2",
+      "esp:4",
+      "green",
+      []
+    ],
+    [
+      "sw28:2",
+      "esp:4",
+      "green",
+      []
+    ],
+    [
+      "sw38:2",
+      "esp:4",
+      "green",
+      []
+    ],
+    [
+      "sw48:2",
+      "esp:4",
+      "green",
+      []
+    ],
+    [
+      "sw58:2",
+      "esp:4",
+      "green",
+      []
+    ],
+    [
+      "sw68:2",
+      "esp:4",
+      "green",
+      []
+    ],
+    [
+      "sw78:2",
+      "esp:4",
+      "green",
+      []
+    ],
+    [
+      "sw88:2",
+      "esp:4",
+      "green",
+      []
+    ],
+    [
+      "sw11:1",
+      "d11:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw12:1",
+      "d12:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw13:1",
+      "d13:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw14:1",
+      "d14:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw15:1",
+      "d15:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw16:1",
+      "d16:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw17:1",
+      "d17:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw18:1",
+      "d18:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw21:1",
+      "d21:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw22:1",
+      "d22:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw23:1",
+      "d23:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw24:1",
+      "d24:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw25:1",
+      "d25:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw26:1",
+      "d26:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw27:1",
+      "d27:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw28:1",
+      "d28:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw31:1",
+      "d31:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw32:1",
+      "d32:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw33:1",
+      "d33:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw34:1",
+      "d34:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw35:1",
+      "d35:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw36:1",
+      "d36:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw37:1",
+      "d37:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw38:1",
+      "d38:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw41:1",
+      "d41:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw42:1",
+      "d42:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw43:1",
+      "d43:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw44:1",
+      "d44:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw45:1",
+      "d45:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw46:1",
+      "d46:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw47:1",
+      "d47:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw48:1",
+      "d48:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw51:1",
+      "d51:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw52:1",
+      "d52:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw53:1",
+      "d53:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw54:1",
+      "d54:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw55:1",
+      "d55:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw56:1",
+      "d56:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw57:1",
+      "d57:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw58:1",
+      "d58:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw61:1",
+      "d61:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw62:1",
+      "d62:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw63:1",
+      "d63:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw64:1",
+      "d64:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw65:1",
+      "d65:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw66:1",
+      "d66:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw67:1",
+      "d67:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw68:1",
+      "d68:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw71:1",
+      "d71:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw72:1",
+      "d72:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw73:1",
+      "d73:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw74:1",
+      "d74:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw75:1",
+      "d75:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw76:1",
+      "d76:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw77:1",
+      "d77:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw78:1",
+      "d78:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw81:1",
+      "d81:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw82:1",
+      "d82:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw83:1",
+      "d83:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw84:1",
+      "d84:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw85:1",
+      "d85:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw86:1",
+      "d86:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw87:1",
+      "d87:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "sw88:1",
+      "d88:ANODE",
+      "orange",
+      []
+    ],
+    [
+      "d11:CATHODE",
+      "esp:13",
+      "blue",
+      []
+    ],
+    [
+      "d12:CATHODE",
+      "esp:13",
+      "blue",
+      []
+    ],
+    [
+      "d13:CATHODE",
+      "esp:13",
+      "blue",
+      []
+    ],
+    [
+      "d14:CATHODE",
+      "esp:13",
+      "blue",
+      []
+    ],
+    [
+      "d15:CATHODE",
+      "esp:13",
+      "blue",
+      []
+    ],
+    [
+      "d16:CATHODE",
+      "esp:13",
+      "blue",
+      []
+    ],
+    [
+      "d17:CATHODE",
+      "esp:13",
+      "blue",
+      []
+    ],
+    [
+      "d18:CATHODE",
+      "esp:13",
+      "blue",
+      []
+    ],
+    [
+      "d21:CATHODE",
+      "esp:14",
+      "blue",
+      []
+    ],
+    [
+      "d22:CATHODE",
+      "esp:14",
+      "blue",
+      []
+    ],
+    [
+      "d23:CATHODE",
+      "esp:14",
+      "blue",
+      []
+    ],
+    [
+      "d24:CATHODE",
+      "esp:14",
+      "blue",
+      []
+    ],
+    [
+      "d25:CATHODE",
+      "esp:14",
+      "blue",
+      []
+    ],
+    [
+      "d26:CATHODE",
+      "esp:14",
+      "blue",
+      []
+    ],
+    [
+      "d27:CATHODE",
+      "esp:14",
+      "blue",
+      []
+    ],
+    [
+      "d28:CATHODE",
+      "esp:14",
+      "blue",
+      []
+    ],
+    [
+      "d31:CATHODE",
+      "esp:27",
+      "blue",
+      []
+    ],
+    [
+      "d32:CATHODE",
+      "esp:27",
+      "blue",
+      []
+    ],
+    [
+      "d33:CATHODE",
+      "esp:27",
+      "blue",
+      []
+    ],
+    [
+      "d34:CATHODE",
+      "esp:27",
+      "blue",
+      []
+    ],
+    [
+      "d35:CATHODE",
+      "esp:27",
+      "blue",
+      []
+    ],
+    [
+      "d36:CATHODE",
+      "esp:27",
+      "blue",
+      []
+    ],
+    [
+      "d37:CATHODE",
+      "esp:27",
+      "blue",
+      []
+    ],
+    [
+      "d38:CATHODE",
+      "esp:27",
+      "blue",
+      []
+    ],
+    [
+      "d41:CATHODE",
+      "esp:26",
+      "blue",
+      []
+    ],
+    [
+      "d42:CATHODE",
+      "esp:26",
+      "blue",
+      []
+    ],
+    [
+      "d43:CATHODE",
+      "esp:26",
+      "blue",
+      []
+    ],
+    [
+      "d44:CATHODE",
+      "esp:26",
+      "blue",
+      []
+    ],
+    [
+      "d45:CATHODE",
+      "esp:26",
+      "blue",
+      []
+    ],
+    [
+      "d46:CATHODE",
+      "esp:26",
+      "blue",
+      []
+    ],
+    [
+      "d47:CATHODE",
+      "esp:26",
+      "blue",
+      []
+    ],
+    [
+      "d48:CATHODE",
+      "esp:26",
+      "blue",
+      []
+    ],
+    [
+      "d51:CATHODE",
+      "esp:25",
+      "blue",
+      []
+    ],
+    [
+      "d52:CATHODE",
+      "esp:25",
+      "blue",
+      []
+    ],
+    [
+      "d53:CATHODE",
+      "esp:25",
+      "blue",
+      []
+    ],
+    [
+      "d54:CATHODE",
+      "esp:25",
+      "blue",
+      []
+    ],
+    [
+      "d55:CATHODE",
+      "esp:25",
+      "blue",
+      []
+    ],
+    [
+      "d56:CATHODE",
+      "esp:25",
+      "blue",
+      []
+    ],
+    [
+      "d57:CATHODE",
+      "esp:25",
+      "blue",
+      []
+    ],
+    [
+      "d58:CATHODE",
+      "esp:25",
+      "blue",
+      []
+    ],
+    [
+      "d61:CATHODE",
+      "esp:33",
+      "blue",
+      []
+    ],
+    [
+      "d62:CATHODE",
+      "esp:33",
+      "blue",
+      []
+    ],
+    [
+      "d63:CATHODE",
+      "esp:33",
+      "blue",
+      []
+    ],
+    [
+      "d64:CATHODE",
+      "esp:33",
+      "blue",
+      []
+    ],
+    [
+      "d65:CATHODE",
+      "esp:33",
+      "blue",
+      []
+    ],
+    [
+      "d66:CATHODE",
+      "esp:33",
+      "blue",
+      []
+    ],
+    [
+      "d67:CATHODE",
+      "esp:33",
+      "blue",
+      []
+    ],
+    [
+      "d68:CATHODE",
+      "esp:33",
+      "blue",
+      []
+    ],
+    [
+      "d71:CATHODE",
+      "esp:32",
+      "blue",
+      []
+    ],
+    [
+      "d72:CATHODE",
+      "esp:32",
+      "blue",
+      []
+    ],
+    [
+      "d73:CATHODE",
+      "esp:32",
+      "blue",
+      []
+    ],
+    [
+      "d74:CATHODE",
+      "esp:32",
+      "blue",
+      []
+    ],
+    [
+      "d75:CATHODE",
+      "esp:32",
+      "blue",
+      []
+    ],
+    [
+      "d76:CATHODE",
+      "esp:32",
+      "blue",
+      []
+    ],
+    [
+      "d77:CATHODE",
+      "esp:32",
+      "blue",
+      []
+    ],
+    [
+      "d78:CATHODE",
+      "esp:32",
+      "blue",
+      []
+    ],
+    [
+      "d81:CATHODE",
+      "esp:23",
+      "blue",
+      []
+    ],
+    [
+      "d82:CATHODE",
+      "esp:23",
+      "blue",
+      []
+    ],
+    [
+      "d83:CATHODE",
+      "esp:23",
+      "blue",
+      []
+    ],
+    [
+      "d84:CATHODE",
+      "esp:23",
+      "blue",
+      []
+    ],
+    [
+      "d85:CATHODE",
+      "esp:23",
+      "blue",
+      []
+    ],
+    [
+      "d86:CATHODE",
+      "esp:23",
+      "blue",
+      []
+    ],
+    [
+      "d87:CATHODE",
+      "esp:23",
+      "blue",
+      []
+    ],
+    [
+      "d88:CATHODE",
+      "esp:23",
+      "blue",
+      []
+    ]
+  ],
+  "dependencies": {
+    "chip-diode": "github:drf5n/Wokwi-Chip-Diode@1.0.0"
+  }
+}
