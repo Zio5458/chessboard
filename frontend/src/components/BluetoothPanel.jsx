@@ -1,28 +1,42 @@
 import { useRef, useState } from "react";
 import { connectSmartChessboard } from "../lib/bleClient";
-import { parseMoveText } from "../lib/chessUtils";
+import { parseBoardMessage } from "../lib/chessUtils";
 
 export default function BluetoothPanel({ onBleMove, onStatus }) {
   const connectionRef = useRef(null);
+
   const [connected, setConnected] = useState(false);
+  const [deviceName, setDeviceName] = useState("");
+  const [messages, setMessages] = useState([]);
+
+  function addMessage(message) {
+    setMessages((items) => [message, ...items].slice(0, 5));
+  }
 
   async function handleConnect() {
     try {
       const connection = await connectSmartChessboard({
         onStatus,
         onMessage: (message) => {
-          onStatus(`BLE RX: ${message}`);
+          addMessage(message);
 
-          const parsed = parseMoveText(message);
+          const parsed = parseBoardMessage(message);
 
-          if (parsed.ok) {
-            onBleMove(parsed.move, `Movimiento recibido por BLE: ${parsed.move.from} -> ${parsed.move.to}`);
+          if (parsed.type === "MOVE") {
+            onBleMove(
+              parsed.move,
+              `${parsed.message}. Presione "Verificar Movimiento" para validarlo.`
+            );
+            return;
           }
+
+          onStatus(parsed.message);
         }
       });
 
       connectionRef.current = connection;
       setConnected(true);
+      setDeviceName(connection.device.name ?? "SmartChess");
     } catch (error) {
       onStatus(`Error BLE: ${error.message}`);
     }
@@ -31,7 +45,10 @@ export default function BluetoothPanel({ onBleMove, onStatus }) {
   function handleDisconnect() {
     connectionRef.current?.disconnect();
     connectionRef.current = null;
+
     setConnected(false);
+    setDeviceName("");
+
     onStatus("BLE desconectado manualmente.");
   }
 
@@ -44,19 +61,64 @@ export default function BluetoothPanel({ onBleMove, onStatus }) {
     }
   }
 
+  async function handleStartInit() {
+    try {
+      await connectionRef.current?.write("START_INIT");
+      onStatus("Comando START_INIT enviado al tablero.");
+    } catch (error) {
+      onStatus(`No se pudo enviar START_INIT: ${error.message}`);
+    }
+  }
+
+  async function handleResetBoard() {
+    try {
+      await connectionRef.current?.write("RESET_BOARD");
+      onStatus("Comando RESET_BOARD enviado al tablero.");
+    } catch (error) {
+      onStatus(`No se pudo enviar RESET_BOARD: ${error.message}`);
+    }
+  }
+
   return (
     <section className="bluetooth-panel">
-      <button type="button" onClick={handleConnect} disabled={connected}>
-        Conectar BLE
-      </button>
+      <div className="ble-title">
+        <strong>BLE</strong>
+        <span className={connected ? "ble-connected" : "ble-disconnected"}>
+          {connected ? `Conectado: ${deviceName}` : "Desconectado"}
+        </span>
+      </div>
 
-      <button type="button" onClick={handleDisconnect} disabled={!connected}>
-        Desconectar
-      </button>
+      <div className="ble-buttons">
+        <button type="button" onClick={handleConnect} disabled={connected}>
+          Conectar
+        </button>
 
-      <button type="button" onClick={handlePing} disabled={!connected}>
-        PING
-      </button>
+        <button type="button" onClick={handleDisconnect} disabled={!connected}>
+          Desconectar
+        </button>
+
+        <button type="button" onClick={handlePing} disabled={!connected}>
+          PING
+        </button>
+
+        <button type="button" onClick={handleStartInit} disabled={!connected}>
+          Init
+        </button>
+
+        <button type="button" onClick={handleResetBoard} disabled={!connected}>
+          Reset tablero
+        </button>
+      </div>
+
+      {messages.length > 0 && (
+        <div className="ble-log">
+          {messages.map((message, index) => (
+            <div key={`${message}-${index}`} className="ble-log-line">
+              {message}
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

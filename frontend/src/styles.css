@@ -251,3 +251,43 @@ button:disabled {
     width: min(92vw, 680px);
   }
 }
+.ble-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.ble-connected {
+  color: #9df7a5;
+  font-size: 0.75rem;
+}
+
+.ble-disconnected {
+  color: #ff9e9e;
+  font-size: 0.75rem;
+}
+
+.ble-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ble-log {
+  margin-top: 8px;
+  max-height: 70px;
+  overflow: auto;
+  padding: 6px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.35);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.7rem;
+}
+
+.ble-log-line {
+  color: #d9d9d9;
+  white-space: nowrap;
+}

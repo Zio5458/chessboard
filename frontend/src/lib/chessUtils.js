@@ -145,3 +145,105 @@ export function applyMoveToBoard(board, move) {
     capturedPiece
   };
 }
+export function parseBoardMessage(message) {
+  const text = message.trim();
+
+  if (!text) {
+    return {
+      type: "EMPTY",
+      raw: message
+    };
+  }
+
+  const parts = text.split(/\s+/);
+  const command = parts[0].toUpperCase();
+
+  if (command === "MOVE") {
+    const parsed = parseMoveText(text);
+
+    if (!parsed.ok) {
+      return {
+        type: "ERROR",
+        raw: text,
+        message: parsed.error
+      };
+    }
+
+    return {
+      type: "MOVE",
+      raw: text,
+      move: parsed.move,
+      message: `Movimiento recibido del tablero: ${parsed.move.from} -> ${parsed.move.to}`
+    };
+  }
+
+  if (command === "CHANGE") {
+    return {
+      type: "CHANGE",
+      raw: text,
+      message: `Cambio fisico detectado: ${parts.slice(1).join(" ")}`
+    };
+  }
+
+  if (command === "INIT_OK") {
+    return {
+      type: "STATUS",
+      raw: text,
+      message: "Inicializacion fisica completada."
+    };
+  }
+
+  if (command === "INIT_STATUS") {
+    return {
+      type: "STATUS",
+      raw: text,
+      message: `Estado de inicializacion: ${parts.slice(1).join(" ")}`
+    };
+  }
+
+  if (command === "INIT_MISSING") {
+    return {
+      type: "STATUS",
+      raw: text,
+      message: `Faltan piezas en: ${parts.slice(1).join(", ")}`
+    };
+  }
+
+  if (command === "INIT_EXTRA") {
+    return {
+      type: "STATUS",
+      raw: text,
+      message: `Piezas extra en: ${parts.slice(1).join(", ")}`
+    };
+  }
+
+  if (command === "AMBIGUOUS_MOVE") {
+    return {
+      type: "WARNING",
+      raw: text,
+      message: "Movimiento fisico ambiguo. Revise la posicion de las piezas."
+    };
+  }
+
+  if (command === "UNRESOLVED_CHANGES") {
+    return {
+      type: "WARNING",
+      raw: text,
+      message: "Hubo cambios fisicos no resueltos."
+    };
+  }
+
+  if (command === "PONG") {
+    return {
+      type: "STATUS",
+      raw: text,
+      message: "PONG recibido del tablero."
+    };
+  }
+
+  return {
+    type: "STATUS",
+    raw: text,
+    message: text
+  };
+}

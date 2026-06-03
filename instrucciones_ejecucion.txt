@@ -1,0 +1,56 @@
+El proyecto tiene 3 partes:
+    a. El backend del ajedrez en C++
+    b. API local que conecta el frontend y backend
+    c. Frontend en React
+
+Para compilar el backend:
+g++ -std=c++17 main.cpp chessboard.cpp -o chess
+./chess     o       ./chess.exe
+
+Para las pruebas del backend:
+g++ -std=c++17 -Wall -Wextra tests/test_chess.cpp chessboard.cpp -o tests/chess_tests
+./tests/chess_tests     o       ./tests/chess_tests.exe
+
+Para compilar el motor CLI para la API local:
+g++ -std=c++17 engine_cli.cpp chessboard.cpp -o chess_engine_cli
+./chess_engine_cli      o       ./chess_engine_cli.exe
+
+    Con comandos de prueba:
+        BOARD
+        MOVE <pos_inicial> <pos_final>
+        RESET
+        QUIT
+    
+Para ejecutar la API:
+cd local-api
+npm install
+npm run dev
+
+    La api queda en localhost:3030 y se revisa su salud con:
+    localhost:3030/api/health
+
+Para ejecutar el frontend:
+cd frontend
+npm install
+npm run dev
+
+    El frontend queda en localhost:5173
+
+
+Deben haber dos terminales:
+    Terminal 1: API local y backend
+        g++ -std=c++17 engine_cli.cpp chessboard.cpp -o chess_engine_cli
+        cd local-api
+        npm install
+        npm run dev
+
+    Terminal 2: Frontend
+        cd frontend
+        npm install
+        npm run dev
+
+Firmware:
+    El firmware del tablero esta en la carpeta correspondiente.
+    esp32_board_reader.ino y BoardPins.h deben cargarse al ESP32 en ArduinoIDE
+    El monitor serial debe abrirse a:
+        115200 baud
