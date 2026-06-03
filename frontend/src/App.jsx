@@ -1,51 +1,37 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Chess } from "chess.js";
+import { useEffect, useMemo, useState } from "react";
 
 import ChessBoard from "./components/ChessBoard";
 import PlayerPanel from "./components/PlayerPanel";
 import MovePanel from "./components/MovePanel";
 import BluetoothPanel from "./components/BluetoothPanel";
 
-import { createBoardFromChess } from "./lib/initialBoard";
+import { createInitialBoard } from "./lib/initialBoard";
+import { getGameState, resetGame, verifyMove } from "./lib/backendClient";
 
 const INITIAL_TIME_SECONDS = 10 * 60;
 
-function getStatusFromGame(game, moveResult) {
-  if (game.isCheckmate()) {
-    return `Jaque mate. Movimiento final: ${moveResult.san}`;
+function getStatusMessage(result) {
+  if (!result.valid) {
+    return `Movimiento invalido: ${result.message}`;
   }
 
-  if (game.isStalemate()) {
-    return "Ahogado. La partida termino en empate.";
+  if (result.isCheckmate) {
+    return `Jaque mate. ${result.message}`;
   }
 
-  if (game.isDraw()) {
-    return "La partida termino en tablas.";
+  if (result.isStalemate) {
+    return `Ahogado. ${result.message}`;
   }
 
-  if (game.isCheck()) {
-    return `Jaque. Movimiento: ${moveResult.san}`;
+  if (result.isCheck) {
+    return `Jaque. ${result.message}`;
   }
 
-  return `Movimiento valido: ${moveResult.san}`;
-}
-
-function normalizePromotion(promotion) {
-  if (!promotion) return undefined;
-
-  const value = promotion.toLowerCase();
-
-  if (["q", "r", "b", "n"].includes(value)) {
-    return value;
-  }
-
-  return undefined;
+  return result.message;
 }
 
 export default function App() {
-  const chessRef = useRef(new Chess());
-
-  const [board, setBoard] = useState(() => createBoardFromChess(chessRef.current));
+  const [board, setBoard] = useState(() => createInitialBoard());
   const [currentTurn, setCurrentTurn] = useState("w");
 
   const [whiteSeconds, setWhiteSeconds] = useState(INITIAL_TIME_SECONDS);
@@ -59,16 +45,36 @@ export default function App() {
   const [capturedByBlack, setCapturedByBlack] = useState([]);
 
   const [history, setHistory] = useState([]);
-  const [status, setStatus] = useState("Frontend listo. Ingrese un movimiento o conecte BLE.");
+  const [status, setStatus] = useState("Conectando con backend C++...");
 
   const turnLabel = useMemo(() => {
     return currentTurn === "w" ? "Blancas" : "Negras";
   }, [currentTurn]);
 
   useEffect(() => {
-    if (!gameStarted) return;
+    async function initializeBackend() {
+      try {
+        const state = await resetGame();
 
-    if (chessRef.current.isGameOver()) return;
+        if (state.board) {
+          setBoard(state.board);
+        }
+
+        if (state.turn) {
+          setCurrentTurn(state.turn);
+        }
+
+        setStatus("Backend C++ conectado. Ingrese un movimiento o conecte BLE.");
+      } catch (error) {
+        setStatus(`No se pudo conectar con backend C++: ${error.message}`);
+      }
+    }
+
+    initializeBackend();
+  }, []);
+
+  useEffect(() => {
+    if (!gameStarted) return;
 
     const interval = setInterval(() => {
       if (currentTurn === "w") {
@@ -86,86 +92,84 @@ export default function App() {
     setStatus(message);
   }
 
-  function handleVerifyMove() {
+  async function handleVerifyMove() {
     if (!pendingMove) {
       setStatus("No hay movimiento pendiente.");
       return;
     }
 
-    const game = chessRef.current;
-
-    if (game.isGameOver()) {
-      setStatus("La partida ya termino. Reinicie para jugar de nuevo.");
-      return;
-    }
-
-    let moveResult = null;
+    let result;
 
     try {
-      moveResult = game.move({
-        from: pendingMove.from,
-        to: pendingMove.to,
-        promotion: normalizePromotion(pendingMove.promotion)
-      });
+      result = await verifyMove(pendingMove);
     } catch (error) {
-      setStatus(
-        `Movimiento invalido: ${pendingMove.from} -> ${pendingMove.to}. ${
-          pendingMove.promotion ? "" : "Si es promocion, use Q, R, B o N."
-        }`
-      );
+      setStatus(`Error consultando backend C++: ${error.message}`);
       return;
     }
 
-    if (!moveResult) {
-      setStatus(`Movimiento invalido: ${pendingMove.from} -> ${pendingMove.to}.`);
+    if (!result.valid) {
+      setStatus(getStatusMessage(result));
       return;
     }
 
-    setBoard(createBoardFromChess(game));
+    setBoard(result.board);
+    setCurrentTurn(result.turn);
     setLastMove({
-      from: moveResult.from,
-      to: moveResult.to,
-      kind: pendingMove.kind,
+      from: result.from,
+      to: result.to,
+      kind: result.moveType,
       promotion: pendingMove.promotion
     });
 
     setGameStarted(true);
 
-    if (moveResult.captured) {
-      const capturedColor = moveResult.color === "w" ? "b" : "w";
-      const capturedPiece = `${capturedColor}${moveResult.captured.toUpperCase()}`;
-
-      if (moveResult.color === "w") {
-        setCapturedByWhite((pieces) => [...pieces, capturedPiece]);
-      } else {
-        setCapturedByBlack((pieces) => [...pieces, capturedPiece]);
+    if (result.capturedPiece) {
+      if (result.movedPiece?.[0] === "w") {
+        setCapturedByWhite((pieces) => [...pieces, result.capturedPiece]);
+      } else if (result.movedPiece?.[0] === "b") {
+        setCapturedByBlack((pieces) => [...pieces, result.capturedPiece]);
       }
     }
 
     setHistory((items) => [
       ...items,
-      `${moveResult.color === "w" ? "White" : "Black"}: ${moveResult.san}`
+      `${result.movedPiece?.[0] === "w" ? "White" : "Black"}: ${result.from} -> ${result.to} ${result.moveType}`
     ]);
 
-    setCurrentTurn(game.turn());
-    setStatus(getStatusFromGame(game, moveResult));
+    setStatus(getStatusMessage(result));
     setPendingMove(null);
   }
 
-  function handleReset() {
-    chessRef.current = new Chess();
+  async function handleReset() {
+    try {
+      const state = await resetGame();
 
-    setBoard(createBoardFromChess(chessRef.current));
-    setCurrentTurn("w");
-    setWhiteSeconds(INITIAL_TIME_SECONDS);
-    setBlackSeconds(INITIAL_TIME_SECONDS);
-    setGameStarted(false);
-    setPendingMove(null);
-    setLastMove(null);
-    setCapturedByWhite([]);
-    setCapturedByBlack([]);
-    setHistory([]);
-    setStatus("Partida reiniciada.");
+      setBoard(state.board ?? createInitialBoard());
+      setCurrentTurn(state.turn ?? "w");
+      setWhiteSeconds(INITIAL_TIME_SECONDS);
+      setBlackSeconds(INITIAL_TIME_SECONDS);
+      setGameStarted(false);
+      setPendingMove(null);
+      setLastMove(null);
+      setCapturedByWhite([]);
+      setCapturedByBlack([]);
+      setHistory([]);
+      setStatus("Partida reiniciada desde backend C++.");
+    } catch (error) {
+      setStatus(`No se pudo reiniciar backend C++: ${error.message}`);
+    }
+  }
+
+  async function handleRefreshState() {
+    try {
+      const state = await getGameState();
+
+      setBoard(state.board ?? createInitialBoard());
+      setCurrentTurn(state.turn ?? "w");
+      setStatus("Estado actualizado desde backend C++.");
+    } catch (error) {
+      setStatus(`No se pudo obtener estado: ${error.message}`);
+    }
   }
 
   return (
@@ -184,6 +188,10 @@ export default function App() {
           onVerifyMove={handleVerifyMove}
           onReset={handleReset}
         />
+
+        <button className="reset-button" type="button" onClick={handleRefreshState}>
+          Sincronizar Backend
+        </button>
 
         <PlayerPanel
           name="White"

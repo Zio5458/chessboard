@@ -1,16 +1,40 @@
-// Esta es una capa temporal.
-// Despues la podemos reemplazar por:
-// 1. llamada a una API local,
-// 2. WebAssembly,
-// 3. puente con Electron,
-// 4. o comunicacion directa con un proceso C++.
-// Por ahora sirve para que el frontend tenga una funcion estable:
-// verifyMove(move)
+const API_BASE_URL = "http://localhost:3030/api";
+
+async function readResponse(response) {
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message ?? "Error comunicando con el backend.");
+  }
+
+  return data;
+}
+
+export async function getGameState() {
+  const response = await fetch(`${API_BASE_URL}/state`);
+  return readResponse(response);
+}
+
+export async function resetGame() {
+  const response = await fetch(`${API_BASE_URL}/reset`, {
+    method: "POST"
+  });
+
+  return readResponse(response);
+}
 
 export async function verifyMove(move) {
-  return {
-    valid: true,
-    message: `Movimiento aceptado visualmente: ${move.from} -> ${move.to}`,
-    move
-  };
+  const response = await fetch(`${API_BASE_URL}/move`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      from: move.from,
+      to: move.to,
+      promotion: move.promotion
+    })
+  });
+
+  return readResponse(response);
 }
