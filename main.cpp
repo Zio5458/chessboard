@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <cctype>
 
 int main() {
     ChessBoard game;
