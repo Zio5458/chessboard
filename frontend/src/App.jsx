@@ -31,6 +31,9 @@ function getStatusMessage(result) {
 }
 
 export default function App() {
+  //verficacion automatica: agregar ?autoBle=true a la url
+  const autoVerifyBle = new URLSearchParams(window.location.search).get("autoBle") === "true";
+
   const [board, setBoard] = useState(() => createInitialBoard());
   const [currentTurn, setCurrentTurn] = useState("w");
 
@@ -92,7 +95,17 @@ export default function App() {
     setStatus(message);
   }
 
+  function handleBleMove(move) {
+    if (autoVerifyBle) {
+      setStatus(`${message} Auto-verificando...`);
+      handleVerifyMove(move);
+      return;
+    }
+    handleVerifyMove(move);
+  }
+
   async function handleVerifyMove() {
+    const moveToVerify = moveOverride ?? pendingMove;
     if (!pendingMove) {
       setStatus("No hay movimiento pendiente.");
       return;
@@ -118,7 +131,7 @@ export default function App() {
       from: result.from,
       to: result.to,
       kind: result.moveType,
-      promotion: pendingMove.promotion
+      promotion: moveToVerify.promotion
     });
 
     setGameStarted(true);
@@ -187,7 +200,7 @@ export default function App() {
         </button>
 
         <BluetoothPanel
-          onBleMove={handlePendingMove}
+          onBleMove={handleBleMove}
           onStatus={setStatus}
         />
 
@@ -196,6 +209,9 @@ export default function App() {
           <p>{status}</p>
           <p>
             Turno: <strong>{turnLabel}</strong>
+          </p>
+          <p>
+            BLE = auto-verificacion: <strong>{autoVerifyBle ? "Activada" : "Desactivada"}</strong>
           </p>
           {pendingMove && (
             <p>
