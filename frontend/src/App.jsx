@@ -175,13 +175,6 @@ export default function App() {
   return (
     <main className="app-shell">
       <section className="left-panel">
-        <PlayerPanel
-          name="Black"
-          seconds={blackSeconds}
-          active={gameStarted && currentTurn === "b"}
-          capturedPieces={capturedByBlack}
-        />
-
         <MovePanel
           pendingMove={pendingMove}
           onPendingMove={handlePendingMove}
@@ -189,16 +182,9 @@ export default function App() {
           onReset={handleReset}
         />
 
-        <button className="reset-button" type="button" onClick={handleRefreshState}>
+        <button className="sync-button" type="button" onClick={handleRefreshState}>
           Sincronizar Backend
         </button>
-
-        <PlayerPanel
-          name="White"
-          seconds={whiteSeconds}
-          active={gameStarted && currentTurn === "w"}
-          capturedPieces={capturedByWhite}
-        />
 
         <BluetoothPanel
           onBleMove={handlePendingMove}
@@ -217,23 +203,41 @@ export default function App() {
             </p>
           )}
         </section>
-
-        <section className="history-card">
-          <h3>Historial</h3>
-          {history.length === 0 ? (
-            <p className="muted">Sin movimientos.</p>
-          ) : (
-            <ol>
-              {history.map((item, index) => (
-                <li key={`${item}-${index}`}>{item}</li>
-              ))}
-            </ol>
-          )}
-        </section>
       </section>
 
-      <section className="board-panel">
-        <ChessBoard board={board} lastMove={lastMove} />
+      <section className="game-stage">
+        <div className="board-panel">
+          <ChessBoard board={board} lastMove={lastMove} />
+        </div>
+
+        <aside className="right-sidebar">
+          <PlayerPanel
+            name="Black"
+            seconds={blackSeconds}
+            active={gameStarted && currentTurn === "b"}
+            capturedPieces={capturedByBlack}
+          />
+
+          <section className="history-card side-history-card">
+            <h3>Historial</h3>
+            {history.length === 0 ? (
+              <p className="muted">Sin movimientos.</p>
+            ) : (
+              <ol>
+                {history.map((item, index) => (
+                  <li key={`${item}-${index}`}>{item}</li>
+                ))}
+              </ol>
+            )}
+          </section>
+
+          <PlayerPanel
+            name="White"
+            seconds={whiteSeconds}
+            active={gameStarted && currentTurn === "w"}
+            capturedPieces={capturedByWhite}
+          />
+        </aside>
       </section>
     </main>
   );
