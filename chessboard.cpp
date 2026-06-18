@@ -946,6 +946,325 @@ void ChessBoard::setEnPassantTarget(int row, int col)
     enPassantTargetCol = col;
 }
 
+
+std::vector<std::string> ChessBoard::getLegalMovesFrom(const std::string &from) const
+{
+    std::vector<std::string> moves;
+
+    if (gameStatus == GameStatus::CHECKMATE ||
+        gameStatus == GameStatus::STALEMATE ||
+        gameStatus == GameStatus::DRAW)
+    {
+        return moves;
+    }
+
+    int fromRow = 0;
+    int fromCol = 0;
+
+    if (!coordToPos(from, fromRow, fromCol))
+    {
+        return moves;
+    }
+
+    Piece piece = board[fromRow][fromCol];
+
+    if (piece == EMPTY || !isCurrentPlayerPiece(piece))
+    {
+        return moves;
+    }
+
+    auto addMoveIfNeeded = [&](int toRow, int toCol)
+    {
+        if (!isValidSquare(toRow, toCol))
+        {
+            return;
+        }
+
+        std::string to = posToCoord(toRow, toCol);
+
+        if (std::find(moves.begin(), moves.end(), to) == moves.end())
+        {
+            moves.push_back(to);
+        }
+    };
+
+    auto canTryDestination = [&](int toRow, int toCol, Piece promotionPiece, bool expectedEnPassant)
+    {
+        if (!isValidSquare(toRow, toCol))
+        {
+            return false;
+        }
+
+        Piece destination = board[toRow][toCol];
+
+        if (isSameColor(destination, piece))
+        {
+            return false;
+        }
+
+        bool isCapture = false;
+        bool isEnPassant = false;
+        bool validMove = false;
+
+        if (piece == WHITE_PAWN || piece == BLACK_PAWN)
+        {
+            validMove = isValidPawnMove(fromRow, fromCol, toRow, toCol, isCapture, isEnPassant);
+
+            if (isEnPassant != expectedEnPassant)
+            {
+                return false;
+            }
+
+            bool promotionZone =
+                (isWhitePiece(piece) && toRow == 0) ||
+                (isBlackPiece(piece) && toRow == 7);
+
+            if (promotionZone && promotionPiece == EMPTY)
+            {
+                return false;
+            }
+
+            if (!promotionZone && promotionPiece != EMPTY)
+            {
+                return false;
+            }
+
+            if (!validMove)
+            {
+                return false;
+            }
+
+            if (promotionZone && !isValidPromotionPiece(promotionPiece, isWhitePiece(piece)))
+            {
+                return false;
+            }
+        }
+        else if (piece == WHITE_KNIGHT || piece == BLACK_KNIGHT)
+        {
+            validMove = isValidKnightMove(fromRow, fromCol, toRow, toCol);
+        }
+        else if (piece == WHITE_BISHOP || piece == BLACK_BISHOP)
+        {
+            validMove = isValidBishopMove(fromRow, fromCol, toRow, toCol);
+        }
+        else if (piece == WHITE_ROOK || piece == BLACK_ROOK)
+        {
+            validMove = isValidRookMove(fromRow, fromCol, toRow, toCol);
+        }
+        else if (piece == WHITE_QUEEN || piece == BLACK_QUEEN)
+        {
+            validMove = isValidQueenMove(fromRow, fromCol, toRow, toCol);
+        }
+        else if (piece == WHITE_KING || piece == BLACK_KING)
+        {
+            if (isCastlingAttempt(piece, fromRow, fromCol, toRow, toCol))
+            {
+                return canCastle(fromRow, fromCol, toRow, toCol);
+            }
+
+            if (!isValidKingMove(fromRow, fromCol, toRow, toCol))
+            {
+                return false;
+            }
+
+            if (isSquareAttacked(toRow, toCol, !whiteToMove))
+            {
+                return false;
+            }
+
+            validMove = true;
+        }
+
+        if (!validMove)
+        {
+            return false;
+        }
+
+        if (wouldLeaveKingInCheck(fromRow, fromCol, toRow, toCol, promotionPiece, expectedEnPassant))
+        {
+            return false;
+        }
+
+        return true;
+    };
+
+    auto addIfLegal = [&](int toRow, int toCol, Piece promotionPiece = EMPTY, bool expectedEnPassant = false)
+    {
+        if (canTryDestination(toRow, toCol, promotionPiece, expectedEnPassant))
+        {
+            addMoveIfNeeded(toRow, toCol);
+        }
+    };
+
+    if (piece == WHITE_PAWN || piece == BLACK_PAWN)
+    {
+        int direction = isWhitePiece(piece) ? -1 : 1;
+        int startRow = isWhitePiece(piece) ? 6 : 1;
+        int oneStepRow = fromRow + direction;
+        int twoStepRow = fromRow + 2 * direction;
+
+        Piece promotionOptions[4] = {
+            isWhitePiece(piece) ? WHITE_QUEEN : BLACK_QUEEN,
+            isWhitePiece(piece) ? WHITE_ROOK : BLACK_ROOK,
+            isWhitePiece(piece) ? WHITE_BISHOP : BLACK_BISHOP,
+            isWhitePiece(piece) ? WHITE_KNIGHT : BLACK_KNIGHT};
+
+        if (isValidSquare(oneStepRow, fromCol) && board[oneStepRow][fromCol] == EMPTY)
+        {
+            bool promotionZone =
+                (isWhitePiece(piece) && oneStepRow == 0) ||
+                (isBlackPiece(piece) && oneStepRow == 7);
+
+            if (promotionZone)
+            {
+                for (Piece promotionOption : promotionOptions)
+                {
+                    addIfLegal(oneStepRow, fromCol, promotionOption, false);
+                }
+            }
+            else
+            {
+                addIfLegal(oneStepRow, fromCol, EMPTY, false);
+            }
+        }
+
+        if (fromRow == startRow &&
+            isValidSquare(twoStepRow, fromCol) &&
+            isValidSquare(oneStepRow, fromCol) &&
+            board[oneStepRow][fromCol] == EMPTY &&
+            board[twoStepRow][fromCol] == EMPTY)
+        {
+            addIfLegal(twoStepRow, fromCol, EMPTY, false);
+        }
+
+        for (int deltaCol : {-1, 1})
+        {
+            int toRow = fromRow + direction;
+            int toCol = fromCol + deltaCol;
+
+            if (!isValidSquare(toRow, toCol))
+            {
+                continue;
+            }
+
+            bool promotionZone =
+                (isWhitePiece(piece) && toRow == 0) ||
+                (isBlackPiece(piece) && toRow == 7);
+
+            if (board[toRow][toCol] != EMPTY)
+            {
+                if (!isOpponentPiece(board[toRow][toCol], isWhitePiece(piece)))
+                {
+                    continue;
+                }
+
+                if (promotionZone)
+                {
+                    for (Piece promotionOption : promotionOptions)
+                    {
+                        addIfLegal(toRow, toCol, promotionOption, false);
+                    }
+                }
+                else
+                {
+                    addIfLegal(toRow, toCol, EMPTY, false);
+                }
+            }
+            else if (hasEnPassantTarget && toRow == enPassantTargetRow && toCol == enPassantTargetCol)
+            {
+                addIfLegal(toRow, toCol, EMPTY, true);
+            }
+        }
+
+        return moves;
+    }
+
+    if (piece == WHITE_KNIGHT || piece == BLACK_KNIGHT)
+    {
+        int deltas[8][2] = {
+            {2, 1}, {2, -1}, {-2, 1}, {-2, -1},
+            {1, 2}, {1, -2}, {-1, 2}, {-1, -2}};
+
+        for (auto &delta : deltas)
+        {
+            addIfLegal(fromRow + delta[0], fromCol + delta[1]);
+        }
+
+        return moves;
+    }
+
+    if (piece == WHITE_BISHOP || piece == BLACK_BISHOP ||
+        piece == WHITE_ROOK || piece == BLACK_ROOK ||
+        piece == WHITE_QUEEN || piece == BLACK_QUEEN)
+    {
+        int directions[8][2] = {
+            {1, 0}, {-1, 0}, {0, 1}, {0, -1},
+            {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+
+        int startDirection = 0;
+        int endDirection = 8;
+
+        if (piece == WHITE_BISHOP || piece == BLACK_BISHOP)
+        {
+            startDirection = 4;
+        }
+        else if (piece == WHITE_ROOK || piece == BLACK_ROOK)
+        {
+            endDirection = 4;
+        }
+
+        for (int directionIndex = startDirection; directionIndex < endDirection; directionIndex++)
+        {
+            int dr = directions[directionIndex][0];
+            int dc = directions[directionIndex][1];
+
+            for (int step = 1; step < 8; step++)
+            {
+                int toRow = fromRow + dr * step;
+                int toCol = fromCol + dc * step;
+
+                if (!isValidSquare(toRow, toCol))
+                {
+                    break;
+                }
+
+                addIfLegal(toRow, toCol);
+
+                if (board[toRow][toCol] != EMPTY)
+                {
+                    break;
+                }
+            }
+        }
+
+        return moves;
+    }
+
+    if (piece == WHITE_KING || piece == BLACK_KING)
+    {
+        for (int dr = -1; dr <= 1; dr++)
+        {
+            for (int dc = -1; dc <= 1; dc++)
+            {
+                if (dr == 0 && dc == 0)
+                {
+                    continue;
+                }
+
+                addIfLegal(fromRow + dr, fromCol + dc);
+            }
+        }
+
+        addIfLegal(fromRow, 6);
+        addIfLegal(fromRow, 2);
+
+        return moves;
+    }
+
+    return moves;
+}
+
+
 bool ChessBoard::hasAnyLegalMove(bool white) const
 {
     for (int fromRow = 0; fromRow < 8; fromRow++)

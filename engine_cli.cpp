@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <vector>
 
 std::string escapeJson(const std::string& value) {
     std::string escaped;
@@ -142,6 +143,31 @@ std::string stateJson(const ChessBoard& game, const std::string& message = "Esta
     return json.str();
 }
 
+
+std::string legalMovesJson(const ChessBoard& game, const std::string& from) {
+    std::vector<std::string> moves = game.getLegalMovesFrom(from);
+    std::ostringstream json;
+
+    json << "{";
+    json << "\"valid\":true,";
+    json << "\"from\":\"" << escapeJson(from) << "\",";
+    json << "\"moves\":[";
+
+    for (size_t i = 0; i < moves.size(); i++) {
+        if (i > 0) {
+            json << ",";
+        }
+
+        json << "\"" << escapeJson(moves[i]) << "\"";
+    }
+
+    json << "],";
+    json << "\"message\":\"Movimientos legales calculados.\"";
+    json << "}";
+
+    return json.str();
+}
+
 std::string moveResultJson(
     const ChessBoard& game,
     const MoveResult& result,
@@ -195,6 +221,18 @@ int main() {
 
         else if (command == "BOARD") {
             std::cout << stateJson(game) << std::endl;
+        }
+
+        else if (command == "LEGAL") {
+            std::string from;
+            stream >> from;
+
+            if (from.empty()) {
+                std::cout << "{\"valid\":false,\"message\":\"Debe enviar casilla de origen.\"}" << std::endl;
+                continue;
+            }
+
+            std::cout << legalMovesJson(game, from) << std::endl;
         }
 
         else if (command == "MOVE") {

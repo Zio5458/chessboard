@@ -65,6 +65,7 @@ public:
     void resetBoard();
 
     MoveResult processMove(const std::string& from, const std::string& to, Piece promotionPiece = EMPTY);
+    std::vector<std::string> getLegalMovesFrom(const std::string& from) const;
 
     GameStatus getGameStatus() const;
 

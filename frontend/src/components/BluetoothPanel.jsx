@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
 import { connectSmartChessboard } from "../lib/bleClient";
+import { getLegalMoves } from "../lib/backendClient";
 import { parseBoardMessage } from "../lib/chessUtils";
 
-export default function BluetoothPanel({ onBleMove, onStatus }) {
+export default function BluetoothPanel({ onBleMove, onStatus, onCommandReady }) {
   const connectionRef = useRef(null);
 
   const [connected, setConnected] = useState(false);
@@ -13,14 +14,45 @@ export default function BluetoothPanel({ onBleMove, onStatus }) {
     setMessages((items) => [message, ...items].slice(0, 5));
   }
 
+  async function sendBoardCommand(command) {
+    if (!connectionRef.current) {
+      throw new Error("No hay conexion BLE activa.");
+    }
+
+    await connectionRef.current.write(command);
+  }
+
+  async function handleLiftedSquare(square) {
+    try {
+      const result = await getLegalMoves(square);
+      const moves = result.moves ?? [];
+
+      if (moves.length === 0) {
+        await sendBoardCommand("CLEAR_LEDS");
+        onStatus(`Pieza levantada en ${square}. No hay movimientos legales.`);
+        return;
+      }
+
+      await sendBoardCommand(`LEGAL_MOVES ${moves.join(" ")}`);
+      onStatus(`Pieza levantada en ${square}. Movimientos legales: ${moves.join(", ")}.`);
+    } catch (error) {
+      onStatus(`No se pudieron obtener movimientos legales para ${square}: ${error.message}`);
+    }
+  }
+
   async function handleConnect() {
     try {
       const connection = await connectSmartChessboard({
         onStatus,
-        onMessage: (message) => {
+        onMessage: async (message) => {
           addMessage(message);
 
           const parsed = parseBoardMessage(message);
+
+          if (parsed.type === "LIFTED") {
+            await handleLiftedSquare(parsed.square);
+            return;
+          }
 
           if (parsed.type === "MOVE") {
             onBleMove(
@@ -35,6 +67,13 @@ export default function BluetoothPanel({ onBleMove, onStatus }) {
       });
 
       connectionRef.current = connection;
+
+      if (onCommandReady) {
+        onCommandReady(() => async (command) => {
+          await connection.write(command);
+        });
+      }
+
       setConnected(true);
       setDeviceName(connection.device.name ?? "SmartChess");
     } catch (error) {
@@ -46,6 +85,10 @@ export default function BluetoothPanel({ onBleMove, onStatus }) {
     connectionRef.current?.disconnect();
     connectionRef.current = null;
 
+    if (onCommandReady) {
+      onCommandReady(null);
+    }
+
     setConnected(false);
     setDeviceName("");
 
@@ -54,28 +97,37 @@ export default function BluetoothPanel({ onBleMove, onStatus }) {
 
   async function handlePing() {
     try {
-      await connectionRef.current?.write("PING");
+      await sendBoardCommand("PING");
       onStatus("PING enviado al tablero.");
     } catch (error) {
       onStatus(`No se pudo enviar PING: ${error.message}`);
     }
   }
 
-  async function handleStartInit() {
+  async function handleInitFlash() {
     try {
-      await connectionRef.current?.write("START_INIT");
-      onStatus("Comando START_INIT enviado al tablero.");
+      await sendBoardCommand("INIT_FLASH");
+      onStatus("Comando INIT_FLASH enviado al tablero.");
     } catch (error) {
-      onStatus(`No se pudo enviar START_INIT: ${error.message}`);
+      onStatus(`No se pudo enviar INIT_FLASH: ${error.message}`);
     }
   }
 
-  async function handleResetBoard() {
+  async function handleClearLeds() {
     try {
-      await connectionRef.current?.write("RESET_BOARD");
-      onStatus("Comando RESET_BOARD enviado al tablero.");
+      await sendBoardCommand("CLEAR_LEDS");
+      onStatus("Comando CLEAR_LEDS enviado al tablero.");
     } catch (error) {
-      onStatus(`No se pudo enviar RESET_BOARD: ${error.message}`);
+      onStatus(`No se pudo enviar CLEAR_LEDS: ${error.message}`);
+    }
+  }
+
+  async function handleResetBaseline() {
+    try {
+      await sendBoardCommand("RESET_BASELINE");
+      onStatus("Comando RESET_BASELINE enviado al tablero.");
+    } catch (error) {
+      onStatus(`No se pudo enviar RESET_BASELINE: ${error.message}`);
     }
   }
 
@@ -101,12 +153,16 @@ export default function BluetoothPanel({ onBleMove, onStatus }) {
           PING
         </button>
 
-        <button type="button" onClick={handleStartInit} disabled={!connected}>
-          Init
+        <button type="button" onClick={handleInitFlash} disabled={!connected}>
+          Flash LEDs
         </button>
 
-        <button type="button" onClick={handleResetBoard} disabled={!connected}>
-          Reset tablero
+        <button type="button" onClick={handleClearLeds} disabled={!connected}>
+          Apagar LEDs
+        </button>
+
+        <button type="button" onClick={handleResetBaseline} disabled={!connected}>
+          Reset baseline
         </button>
       </div>
 

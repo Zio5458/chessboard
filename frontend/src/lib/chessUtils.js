@@ -177,6 +177,58 @@ export function parseBoardMessage(message) {
     };
   }
 
+
+  if (command === "LIFTED") {
+    const square = parts[1];
+
+    if (!isValidSquare(square)) {
+      return {
+        type: "ERROR",
+        raw: text,
+        message: "Mensaje LIFTED invalido."
+      };
+    }
+
+    return {
+      type: "LIFTED",
+      raw: text,
+      square,
+      message: `Pieza levantada desde ${square}`
+    };
+  }
+
+  if (command === "MOVE_CANCELLED") {
+    return {
+      type: "STATUS",
+      raw: text,
+      message: `Movimiento cancelado: ${parts.slice(1).join(" ")}`
+    };
+  }
+
+  if (command === "BOARD_CHANGED") {
+    return {
+      type: "WARNING",
+      raw: text,
+      message: `Cambios multiples en el tablero: ${parts.slice(1).join(" ")}`
+    };
+  }
+
+  if (command === "LED_OK") {
+    return {
+      type: "STATUS",
+      raw: text,
+      message: `LEDs actualizados: ${parts.slice(1).join(" ")}`
+    };
+  }
+
+  if (command === "BOARD_COUNT") {
+    return {
+      type: "STATUS",
+      raw: text,
+      message: `Piezas detectadas por el tablero: ${parts[1] ?? "?"}`
+    };
+  }
+
   if (command === "CHANGE") {
     return {
       type: "CHANGE",

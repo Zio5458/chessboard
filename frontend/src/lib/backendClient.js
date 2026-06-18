@@ -38,3 +38,8 @@ export async function verifyMove(move) {
 
   return readResponse(response);
 }
+
+export async function getLegalMoves(from) {
+  const response = await fetch(`${API_BASE_URL}/legal-moves?from=${encodeURIComponent(from)}`);
+  return readResponse(response);
+}

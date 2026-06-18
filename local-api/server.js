@@ -126,6 +126,28 @@ app.post("/api/reset", async (req, res) => {
   }
 });
 
+
+app.get("/api/legal-moves", async (req, res) => {
+  try {
+    const { from } = req.query;
+
+    if (!from) {
+      return res.status(400).json({
+        valid: false,
+        message: "Debe enviar from."
+      });
+    }
+
+    const result = await sendEngineCommand(`LEGAL ${from}`);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({
+      valid: false,
+      message: error.message
+    });
+  }
+});
+
 app.post("/api/move", async (req, res) => {
   try {
     const { from, to, promotion } = req.body;
