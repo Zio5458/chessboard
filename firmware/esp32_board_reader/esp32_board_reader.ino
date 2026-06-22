@@ -20,12 +20,10 @@ const byte ARDUINO_ADDRESSES[ARDUINO_COUNT] = {
   0x10, 0x11, 0x12, 0x13
 };
 
-// LEDs WS2812B
 #define LED_PIN 4
 #define NUM_LEDS 64
 #define LED_BRIGHTNESS 20
 
-// Cambia esto según cómo conectes físicamente la cadena de LEDs.
 // false: LED0=a1, LED1=b1, LED2=c1 ... LED7=h1, LED8=a2...
 // true:  LED0=a1, LED1=b1 ... LED7=h1, LED8=h2, LED9=g2...
 const bool LED_SERPENTINE = false;
@@ -508,7 +506,7 @@ void printChangedSquares(uint64_t mask, bool occupied) {
   }
 }
 
-// ===================== LEDS WS2812B =====================
+// ===================== LEDS =====================
 
 void setupLEDs() {
   FastLED.addLeds<WS2812B, LED_PIN, GRB>(leds, NUM_LEDS);

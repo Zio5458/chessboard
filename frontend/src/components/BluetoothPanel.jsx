@@ -152,7 +152,7 @@ export default function BluetoothPanel({ onBleMove, onStatus, onCommandReady }) 
         <button type="button" onClick={handlePing} disabled={!connected}>
           PING
         </button>
-
+{/*}
         <button type="button" onClick={handleInitFlash} disabled={!connected}>
           Flash LEDs
         </button>
@@ -160,7 +160,7 @@ export default function BluetoothPanel({ onBleMove, onStatus, onCommandReady }) 
         <button type="button" onClick={handleClearLeds} disabled={!connected}>
           Apagar LEDs
         </button>
-
+*/}
         <button type="button" onClick={handleResetBaseline} disabled={!connected}>
           Reset baseline
         </button>
